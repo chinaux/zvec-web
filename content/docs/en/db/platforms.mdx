@@ -1,0 +1,86 @@
+---
+title: Platform Support
+description: Official language SDKs, supported operating systems and CPU architectures, and per-platform index availability for Zvec.
+icon: MonitorSmartphone
+---
+
+
+import { Cpu, HardDrive, Rocket, SearchCode } from 'lucide-react';
+
+## Language SDKs
+
+| SDK | Install | Repository | Prebuilt platform coverage |
+| --- | --- | --- | --- |
+| Python | `pip install zvec` (64-bit, 3.10–3.14) | [alibaba/zvec · `python/`](https://github.com/alibaba/zvec/tree/main/python) | manylinux x86_64 / ARM64, musllinux x86_64 / ARM64, macOS ARM64, Windows x64 |
+| Node.js | `npm install @zvec/zvec` | [zvec-ai/zvec-node](https://github.com/zvec-ai/zvec-node) | Linux x86_64 / ARM64 (glibc and musl), macOS ARM64 / x64, Windows x64 |
+| Go | `go get github.com/zvec-ai/zvec-go` | [zvec-ai/zvec-go](https://github.com/zvec-ai/zvec-go) | Linux x64 / ARM64, macOS ARM64, Windows x64 |
+| Rust | `cargo add zvec-rust` | [zvec-ai/zvec-rust](https://github.com/zvec-ai/zvec-rust) | Linux x86_64 / ARM64, macOS ARM64, Windows x64 |
+| Java | Maven Central `org.zvec:zvec-java` | [zvec-ai/zvec-java](https://github.com/zvec-ai/zvec-java) | Linux x86_64 / ARM64 (glibc 2.27 or newer), macOS ARM64, Windows x64 |
+| Dart / Flutter | `flutter pub add zvec` | [zvec-ai/zvec-dart](https://github.com/zvec-ai/zvec-dart) | Android arm64-v8a, iOS arm64, macOS ARM64, Linux x64, Windows x64 |
+
+- **Python** publishes `musllinux` wheels for x86_64 and ARM64 alongside the `manylinux` ones, so Alpine-based images work out of the box.
+- **Go** provides two backends: `CGO_ENABLED=1` uses cgo, `CGO_ENABLED=0` switches to runtime FFI, so environments without a C toolchain still work.
+- **Rust** enables the `bundled` feature by default and downloads the matching prebuilt library from GitHub Releases — zero configuration.
+- **Java** uses JavaCPP-generated JNI bindings; the default all-platform fat JAR already bundles the native library for every supported platform. Per-platform classifiers and a `nolib` variant are published too, for smaller artifacts or for bringing your own native library.
+- **Dart / Flutter** bundles prebuilt libraries for all five platforms and packages the right one during `flutter build`. This is the main path for embedding Zvec in mobile apps.
+
+Tools built on the same C API: [Zvec Studio](https://github.com/zvec-ai/zvec-studio) (visual workbench), the [Zvec MCP Server](https://github.com/zvec-ai/zvec-mcp-server), and [Zvec-Grep](../../zvec-grep/) (`zg`, local-first workspace search for humans and agents).
+
+## Supported Platforms
+
+| Platform | Architectures | CI verification | Prebuilt artifacts |
+| --- | --- | --- | --- |
+| Linux (glibc) | x86_64, ARM64 | Full build and tests, plus a Clang compatibility matrix | ✅ |
+| Linux (musl) | x86_64, ARM64 | Since v0.7.0 — covers Alpine and other musl distributions | ✅ |
+| macOS | ARM64 (Apple Silicon), x86_64 (Intel) | ARM64 validated on macOS 15 and macOS 26; x86_64 built and tested on Intel runners | ✅ |
+| Windows | x86_64 | Windows Server 2022 and 2025 | ✅ |
+| Android | arm64-v8a | Unit tests actually run inside an x86_64 emulator | ✅ |
+| iOS | arm64 | Simulator tests plus device builds | ✅ |
+| RISC-V | riscv64 | Weekly full build and unit tests on native riscv64 runners | ❌ — build from source |
+
+## Index Availability
+
+| Index | Linux x86_64 | Linux ARM64 | macOS ARM64 | Windows x86_64 | Android arm64 | iOS arm64 | RISC-V |
+| --- | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| [Flat](./concepts/vector-index/flat-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [IVF](./concepts/vector-index/ivf-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [HNSW](./concepts/vector-index/hnsw-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Vamana](./concepts/vector-index/diskann-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Sparse vectors (Flat / HNSW) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [RaBitQ](./concepts/vector-index/hnsw-rabitq-index/) (HNSW / IVF) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| [DiskANN](./concepts/vector-index/diskann-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [INVERT](./concepts/inverted-index/) (scalar) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [FTS](./concepts/fts-index/) (full-text) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+
+<Callout className="text-base" type="info">
+  **RaBitQ** requires AVX2 and AVX-512, which is why it is limited to Linux x86_64 today.
+</Callout>
+
+## Related
+
+<Cards>
+  <Card
+    title="Quickstart"
+    href="./quickstart/"
+    description="Install an SDK and run your first search"
+    icon={<Rocket className="text-teal-300" />}
+  />
+  <Card
+    title="Building from Source"
+    href="./build/"
+    description="Compile Zvec for a platform without prebuilt artifacts"
+    icon={<Cpu className="text-teal-300" />}
+  />
+  <Card
+    title="DiskANN Index"
+    href="./concepts/vector-index/diskann-index/"
+    description="Disk-based retrieval for billion-scale datasets"
+    icon={<HardDrive className="text-purple-300" />}
+  />
+  <Card
+    title="Zvec-Grep"
+    href="../../zvec-grep/"
+    description="Local-first workspace search for humans and AI agents"
+    icon={<SearchCode className="text-purple-300" />}
+  />
+</Cards>
