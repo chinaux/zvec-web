@@ -5,17 +5,86 @@ icon: MonitorSmartphone
 ---
 
 import { Cpu, HardDrive, Rocket, SearchCode } from 'lucide-react';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 ## 语言 SDK
 
-| SDK | 安装 | 代码仓库 | 预编译产物覆盖 |
-| --- | --- | --- | --- |
-| Python | `pip install zvec`（64 位，3.10–3.14） | [alibaba/zvec · `python/`](https://github.com/alibaba/zvec/tree/main/python) | manylinux x86_64 / ARM64、musllinux x86_64 / ARM64、macOS ARM64、Windows x64 |
-| Node.js | `npm install @zvec/zvec` | [zvec-ai/zvec-node](https://github.com/zvec-ai/zvec-node) | Linux x86_64 / ARM64（glibc 与 musl）、macOS ARM64 / x64、Windows x64 |
-| Go | `go get github.com/zvec-ai/zvec-go` | [zvec-ai/zvec-go](https://github.com/zvec-ai/zvec-go) | Linux x64 / ARM64、macOS ARM64、Windows x64 |
-| Rust | `cargo add zvec-rust` | [zvec-ai/zvec-rust](https://github.com/zvec-ai/zvec-rust) | Linux x86_64 / ARM64、macOS ARM64、Windows x64 |
-| Java | Maven Central `org.zvec:zvec-java` | [zvec-ai/zvec-java](https://github.com/zvec-ai/zvec-java) | Linux x86_64 / ARM64（glibc 2.27 及以上）、macOS ARM64、Windows x64 |
-| Dart / Flutter | `flutter pub add zvec` | [zvec-ai/zvec-dart](https://github.com/zvec-ai/zvec-dart) | Android arm64-v8a、iOS arm64、macOS ARM64、Linux x64、Windows x64 |
+所有 SDK 共享同一条稳定的 C API 边界——选择你的语言，查看安装命令与预编译产物覆盖。
+
+<Tabs items={['Python', 'Node.js', 'Go', 'Rust', 'Java', 'Dart / Flutter']}>
+
+<Tab value="Python">
+
+```bash
+pip install zvec
+```
+
+- **预编译覆盖**：manylinux x86_64 / ARM64、musllinux x86_64 / ARM64、macOS ARM64、Windows x64
+- **版本要求**：64 位 Python 3.10–3.14
+- **代码仓库**：[alibaba/zvec · `python/`](https://github.com/alibaba/zvec/tree/main/python)
+
+</Tab>
+
+<Tab value="Node.js">
+
+```bash
+npm install @zvec/zvec
+```
+
+- **预编译覆盖**：Linux x86_64 / ARM64（glibc 与 musl）、macOS ARM64 / x64、Windows x64
+- **代码仓库**：[zvec-ai/zvec-node](https://github.com/zvec-ai/zvec-node)
+
+</Tab>
+
+<Tab value="Go">
+
+```bash
+go get github.com/zvec-ai/zvec-go
+```
+
+- **预编译覆盖**：Linux x64 / ARM64、macOS ARM64、Windows x64
+- **代码仓库**：[zvec-ai/zvec-go](https://github.com/zvec-ai/zvec-go)
+
+</Tab>
+
+<Tab value="Rust">
+
+```bash
+cargo add zvec-rust
+```
+
+- **预编译覆盖**：Linux x86_64 / ARM64、macOS ARM64、Windows x64
+- **代码仓库**：[zvec-ai/zvec-rust](https://github.com/zvec-ai/zvec-rust)
+
+</Tab>
+
+<Tab value="Java">
+
+```xml
+<dependency>
+  <groupId>org.zvec</groupId>
+  <artifactId>zvec-java</artifactId>
+</dependency>
+```
+
+- **预编译覆盖**：Linux x86_64 / ARM64（glibc 2.27 及以上）、macOS ARM64、Windows x64
+- **代码仓库**：[zvec-ai/zvec-java](https://github.com/zvec-ai/zvec-java)
+
+</Tab>
+
+<Tab value="Dart / Flutter">
+
+```bash
+flutter pub add zvec
+```
+
+- **预编译覆盖**：Android arm64-v8a、iOS arm64、macOS ARM64、Linux x64、Windows x64
+- **代码仓库**：[zvec-ai/zvec-dart](https://github.com/zvec-ai/zvec-dart)
+
+</Tab>
+
+</Tabs>
+
 
 ## 支持的软硬件平台
 
