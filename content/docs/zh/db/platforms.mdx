@@ -4,7 +4,6 @@ description: Zvec 官方支持的语言 SDK、操作系统与 CPU 架构，以�
 icon: MonitorSmartphone
 ---
 
-
 import { Cpu, HardDrive, Rocket, SearchCode } from 'lucide-react';
 
 ## 语言 SDK
@@ -18,14 +17,6 @@ import { Cpu, HardDrive, Rocket, SearchCode } from 'lucide-react';
 | Java | Maven Central `org.zvec:zvec-java` | [zvec-ai/zvec-java](https://github.com/zvec-ai/zvec-java) | Linux x86_64 / ARM64（glibc 2.27 及以上）、macOS ARM64、Windows x64 |
 | Dart / Flutter | `flutter pub add zvec` | [zvec-ai/zvec-dart](https://github.com/zvec-ai/zvec-dart) | Android arm64-v8a、iOS arm64、macOS ARM64、Linux x64、Windows x64 |
 
-- **Python**：除 `manylinux` 外同时发布 x86_64 与 ARM64 的 `musllinux` wheel，Alpine 等 musl 环境开箱即用。
-- **Go**：提供 cgo 与 purego 双后端 —— `CGO_ENABLED=1` 走 cgo，`CGO_ENABLED=0` 自动切换到运行时 FFI，没有 C 编译器的环境照样能用。
-- **Rust**：默认开启 `bundled` feature，自动从 GitHub Releases 下载对应平台的预编译库，零配置上手。
-- **Java**：基于 JavaCPP 的 JNI binding，默认 all-platform fat JAR 已内置全部支持平台的预编译库；也提供按平台 classifier（`macosx-arm64` / `linux-x86_64` / `linux-arm64` / `windows-x86_64`）与 `nolib` 变体，方便按需裁剪或自带 native 库。
-- **Dart / Flutter**：内置五平台预编译库，`flutter build` 时自动下载并打包对应的 native 库，这是 Zvec 进入移动 App 最主要的通道。
-
-同样构建在 C API 之上的生态工具：[Zvec Studio](https://github.com/zvec-ai/zvec-studio)（可视化管理工具）、[Zvec MCP Server](https://github.com/zvec-ai/zvec-mcp-server)，以及 [Zvec-Grep](../../zvec-grep/)（`zg`，面向人与 Agent 的本地工作区检索）。
-
 ## 支持的软硬件平台
 
 | 平台 | 架构 | CI 验证 | 预编译产物 |
@@ -36,46 +27,48 @@ import { Cpu, HardDrive, Rocket, SearchCode } from 'lucide-react';
 | Windows | x86_64 | Windows Server 2022 与 2025 | ✅ |
 | Android | arm64-v8a | 在 x86_64 模拟器中实际运行单元测试 | ✅ |
 | iOS | arm64 | 跑模拟器测试并产出真机构建 | ✅ |
-| RISC-V | riscv64 | 每周在原生 riscv64 runner 上完整构建并运行单元测试 | ❌ —— 需源码构建 |
+| RISC-V | riscv64 | 每周在原生 riscv64 runner 上完整构建并运行单元测试 | ❌ |
 
+*✅ = 提供预编译产物 · ❌ = 需源码构建。*
 
 ## 索引可用性矩阵
 
 | 索引 | Linux x86_64 | Linux ARM64 | macOS ARM64 | Windows x86_64 | Android arm64 | iOS arm64 | RISC-V |
 | --- | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| [Flat](./concepts/vector-index/flat-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [IVF](./concepts/vector-index/ivf-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [HNSW](./concepts/vector-index/hnsw-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [Vamana](./concepts/vector-index/diskann-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Flat](../concepts/vector-index/flat-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [IVF](../concepts/vector-index/ivf-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [HNSW](../concepts/vector-index/hnsw-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Vamana](../concepts/vector-index/diskann-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | 稀疏向量（Flat / HNSW） | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [RaBitQ](./concepts/vector-index/hnsw-rabitq-index/)（HNSW / IVF） | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| [DiskANN](./concepts/vector-index/diskann-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| [INVERT](./concepts/inverted-index/)（标量倒排） | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [FTS](./concepts/fts-index/)（全文检索） | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| RaBitQ（[HNSW](../concepts/vector-index/hnsw-rabitq-index/) / [IVF](../concepts/vector-index/ivf-rabitq-index/)） | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| [DiskANN](../concepts/vector-index/diskann-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| [INVERT](../concepts/inverted-index/)（标量倒排） | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [FTS](../concepts/fts-index/)（全文检索） | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+
+*✅ = 该平台可用 · ❌ = 不支持。*
 
 <Callout className="text-base" type="info">
   **RaBitQ** 依赖 AVX2 与 AVX-512，因此目前仅支持 Linux x86_64。
 </Callout>
-
 
 ## 相关阅读
 
 <Cards>
   <Card
     title="快速开始"
-    href="./quickstart/"
+    href="../quickstart/"
     description="安装 SDK 并跑通第一次检索"
     icon={<Rocket className="text-teal-300" />}
   />
   <Card
     title="从源码构建"
-    href="./build/"
+    href="../build/"
     description="为没有预编译产物的平台自行编译 Zvec"
     icon={<Cpu className="text-teal-300" />}
   />
   <Card
     title="DiskANN 索引"
-    href="./concepts/vector-index/diskann-index/"
+    href="../concepts/vector-index/diskann-index/"
     description="面向十亿级数据的磁盘检索"
     icon={<HardDrive className="text-purple-300" />}
   />
