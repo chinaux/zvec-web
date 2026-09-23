@@ -6,12 +6,13 @@ icon: MonitorSmartphone
 
 import { Cpu, HardDrive, Rocket, SearchCode } from 'lucide-react';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 
 ## 语言 SDK
 
 所有 SDK 共享同一条稳定的 C API 边界——选择你的语言，查看安装命令与预编译产物覆盖。
 
-<Tabs items={['Python', 'Node.js', 'Go', 'Rust', 'Java', 'Dart / Flutter']}>
+<Tabs items={['Python', 'Node.js', 'Go', 'Rust', 'Java', 'Dart / Flutter', 'C / C++']}>
 
 <Tab value="Python">
 
@@ -19,9 +20,12 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 pip install zvec
 ```
 
-- **预编译覆盖**：manylinux x86_64 / ARM64、musllinux x86_64 / ARM64、macOS ARM64、Windows x64
+- **预编译覆盖**：
+  - Linux x86_64 / ARM64（glibc 与 musl）
+  - macOS ARM64
+  - Windows x64
 - **版本要求**：64 位 Python 3.10–3.14
-- **代码仓库**：[alibaba/zvec · `python/`](https://github.com/alibaba/zvec/tree/main/python)
+- **代码仓库**：[https://github.com/alibaba/zvec/tree/main/python](https://github.com/alibaba/zvec/tree/main/python)
 
 </Tab>
 
@@ -31,8 +35,11 @@ pip install zvec
 npm install @zvec/zvec
 ```
 
-- **预编译覆盖**：Linux x86_64 / ARM64（glibc 与 musl）、macOS ARM64 / x64、Windows x64
-- **代码仓库**：[zvec-ai/zvec-node](https://github.com/zvec-ai/zvec-node)
+- **预编译覆盖**：
+  - Linux x86_64 / ARM64（glibc 与 musl）
+  - macOS ARM64 / x64
+  - Windows x64
+- **代码仓库**：[https://github.com/zvec-ai/zvec-node](https://github.com/zvec-ai/zvec-node)
 
 </Tab>
 
@@ -42,8 +49,11 @@ npm install @zvec/zvec
 go get github.com/zvec-ai/zvec-go
 ```
 
-- **预编译覆盖**：Linux x64 / ARM64、macOS ARM64、Windows x64
-- **代码仓库**：[zvec-ai/zvec-go](https://github.com/zvec-ai/zvec-go)
+- **预编译覆盖**：
+  - Linux x64 / ARM64
+  - macOS ARM64
+  - Windows x64
+- **代码仓库**：[https://github.com/zvec-ai/zvec-go](https://github.com/zvec-ai/zvec-go)
 
 </Tab>
 
@@ -53,8 +63,11 @@ go get github.com/zvec-ai/zvec-go
 cargo add zvec-rust
 ```
 
-- **预编译覆盖**：Linux x86_64 / ARM64、macOS ARM64、Windows x64
-- **代码仓库**：[zvec-ai/zvec-rust](https://github.com/zvec-ai/zvec-rust)
+- **预编译覆盖**：
+  - Linux x86_64 / ARM64
+  - macOS ARM64
+  - Windows x64
+- **代码仓库**：[https://github.com/zvec-ai/zvec-rust](https://github.com/zvec-ai/zvec-rust)
 
 </Tab>
 
@@ -67,8 +80,11 @@ cargo add zvec-rust
 </dependency>
 ```
 
-- **预编译覆盖**：Linux x86_64 / ARM64（glibc 2.27 及以上）、macOS ARM64、Windows x64
-- **代码仓库**：[zvec-ai/zvec-java](https://github.com/zvec-ai/zvec-java)
+- **预编译覆盖**：
+  - Linux x86_64 / ARM64（glibc 2.27 及以上）
+  - macOS ARM64
+  - Windows x64
+- **代码仓库**：[https://github.com/zvec-ai/zvec-java](https://github.com/zvec-ai/zvec-java)
 
 </Tab>
 
@@ -78,8 +94,30 @@ cargo add zvec-rust
 flutter pub add zvec
 ```
 
-- **预编译覆盖**：Android arm64-v8a、iOS arm64、macOS ARM64、Linux x64、Windows x64
-- **代码仓库**：[zvec-ai/zvec-dart](https://github.com/zvec-ai/zvec-dart)
+- **预编译覆盖**：
+  - Android arm64-v8a
+  - iOS arm64
+  - macOS ARM64
+  - Linux x64
+  - Windows x64
+- **代码仓库**：[https://github.com/zvec-ai/zvec-dart](https://github.com/zvec-ai/zvec-dart)
+
+</Tab>
+
+<Tab value="C / C++">
+
+```bash
+# 从 Releases 页选择对应平台的 SDK 压缩包
+curl -LO https://github.com/alibaba/zvec/releases/latest/download/zvec-sdk-linux-amd64.tar.gz
+```
+
+- **预编译覆盖**：
+  - Linux x86_64 / ARM64（glibc 与 musl）
+  - macOS ARM64
+  - Windows x86_64
+  - Android arm64-v8a
+  - iOS arm64
+- **代码仓库**：[https://github.com/alibaba/zvec](https://github.com/alibaba/zvec)
 
 </Tab>
 
@@ -96,29 +134,32 @@ flutter pub add zvec
 | Windows | x86_64 | ✅ |
 | Android | arm64-v8a | ✅ |
 | iOS | arm64 | ✅ |
-| RISC-V | riscv64 | ❌ |
+| RISC-V | riscv64 | ❌（需源码构建） |
 
-*✅ = 提供预编译产物 · ❌ = 需源码构建。*
 
 ## 索引可用性矩阵
 
-| 索引 | Linux x86_64 | Linux ARM64 | macOS ARM64 | Windows x86_64 | Android arm64 | iOS arm64 | RISC-V |
-| --- | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| [Flat](../concepts/vector-index/flat-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [IVF](../concepts/vector-index/ivf-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [HNSW](../concepts/vector-index/hnsw-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [Vamana](../concepts/vector-index/diskann-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| 稀疏向量（Flat / HNSW） | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| RaBitQ（[HNSW](../concepts/vector-index/hnsw-rabitq-index/) / [IVF](../concepts/vector-index/ivf-rabitq-index/)） | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| [DiskANN](../concepts/vector-index/diskann-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| [INVERT](../concepts/inverted-index/)（标量倒排） | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [FTS](../concepts/fts-index/)（全文检索） | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+<Accordions type="single">
+  <Accordion title="展开完整矩阵（9 类索引 × 7 平台）">
 
-*✅ = 该平台可用 · ❌ = 不支持。*
+  | 索引 | Linux x86_64 | Linux ARM64 | macOS ARM64 | Windows x86_64 | Android arm64-v8a | iOS arm64 | RISC-V |
+  | --- | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+  | [Flat](../concepts/vector-index/flat-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+  | [IVF](../concepts/vector-index/ivf-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+  | [HNSW](../concepts/vector-index/hnsw-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+  | [Vamana](../concepts/vector-index/diskann-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+  | 稀疏向量（Flat / HNSW） | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+  | RaBitQ（[HNSW](../concepts/vector-index/hnsw-rabitq-index/) / [IVF](../concepts/vector-index/ivf-rabitq-index/)） | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+  | [DiskANN](../concepts/vector-index/diskann-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+  | [INVERT](../concepts/inverted-index/)（标量倒排） | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+  | [FTS](../concepts/fts-index/)（全文检索） | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 
-<Callout className="text-base" type="info">
-  **RaBitQ** 依赖 AVX2 与 AVX-512，因此目前仅支持 Linux x86_64。
-</Callout>
+  <Callout className="text-base" type="info">
+    **RaBitQ** 依赖 AVX2 与 AVX-512，因此目前仅支持 Linux x86_64。
+  </Callout>
+
+  </Accordion>
+</Accordions>
 
 ## 相关阅读
 

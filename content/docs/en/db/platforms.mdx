@@ -6,12 +6,13 @@ icon: MonitorSmartphone
 
 import { Cpu, HardDrive, Rocket, SearchCode } from 'lucide-react';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 
 ## Language SDKs
 
 All SDKs share one stable C API boundary — pick your language to see the install command and prebuilt platform coverage.
 
-<Tabs items={['Python', 'Node.js', 'Go', 'Rust', 'Java', 'Dart / Flutter']}>
+<Tabs items={['Python', 'Node.js', 'Go', 'Rust', 'Java', 'Dart / Flutter', 'C / C++']}>
 
 <Tab value="Python">
 
@@ -19,9 +20,12 @@ All SDKs share one stable C API boundary — pick your language to see the insta
 pip install zvec
 ```
 
-- **Prebuilt coverage**: manylinux x86_64 / ARM64, musllinux x86_64 / ARM64, macOS ARM64, Windows x64
+- **Prebuilt coverage**:
+  - Linux x86_64 / ARM64 (glibc and musl)
+  - macOS ARM64
+  - Windows x64
 - **Requirements**: 64-bit Python 3.10–3.14
-- **Repository**: [alibaba/zvec · `python/`](https://github.com/alibaba/zvec/tree/main/python)
+- **Repository**: [https://github.com/alibaba/zvec/tree/main/python](https://github.com/alibaba/zvec/tree/main/python)
 
 </Tab>
 
@@ -31,8 +35,11 @@ pip install zvec
 npm install @zvec/zvec
 ```
 
-- **Prebuilt coverage**: Linux x86_64 / ARM64 (glibc and musl), macOS ARM64 / x64, Windows x64
-- **Repository**: [zvec-ai/zvec-node](https://github.com/zvec-ai/zvec-node)
+- **Prebuilt coverage**:
+  - Linux x86_64 / ARM64 (glibc and musl)
+  - macOS ARM64 / x64
+  - Windows x64
+- **Repository**: [https://github.com/zvec-ai/zvec-node](https://github.com/zvec-ai/zvec-node)
 
 </Tab>
 
@@ -42,8 +49,11 @@ npm install @zvec/zvec
 go get github.com/zvec-ai/zvec-go
 ```
 
-- **Prebuilt coverage**: Linux x64 / ARM64, macOS ARM64, Windows x64
-- **Repository**: [zvec-ai/zvec-go](https://github.com/zvec-ai/zvec-go)
+- **Prebuilt coverage**:
+  - Linux x64 / ARM64
+  - macOS ARM64
+  - Windows x64
+- **Repository**: [https://github.com/zvec-ai/zvec-go](https://github.com/zvec-ai/zvec-go)
 
 </Tab>
 
@@ -53,8 +63,11 @@ go get github.com/zvec-ai/zvec-go
 cargo add zvec-rust
 ```
 
-- **Prebuilt coverage**: Linux x86_64 / ARM64, macOS ARM64, Windows x64
-- **Repository**: [zvec-ai/zvec-rust](https://github.com/zvec-ai/zvec-rust)
+- **Prebuilt coverage**:
+  - Linux x86_64 / ARM64
+  - macOS ARM64
+  - Windows x64
+- **Repository**: [https://github.com/zvec-ai/zvec-rust](https://github.com/zvec-ai/zvec-rust)
 
 </Tab>
 
@@ -67,8 +80,11 @@ cargo add zvec-rust
 </dependency>
 ```
 
-- **Prebuilt coverage**: Linux x86_64 / ARM64 (glibc 2.27 or newer), macOS ARM64, Windows x64
-- **Repository**: [zvec-ai/zvec-java](https://github.com/zvec-ai/zvec-java)
+- **Prebuilt coverage**:
+  - Linux x86_64 / ARM64 (glibc 2.27 or newer)
+  - macOS ARM64
+  - Windows x64
+- **Repository**: [https://github.com/zvec-ai/zvec-java](https://github.com/zvec-ai/zvec-java)
 
 </Tab>
 
@@ -78,8 +94,30 @@ cargo add zvec-rust
 flutter pub add zvec
 ```
 
-- **Prebuilt coverage**: Android arm64-v8a, iOS arm64, macOS ARM64, Linux x64, Windows x64
-- **Repository**: [zvec-ai/zvec-dart](https://github.com/zvec-ai/zvec-dart)
+- **Prebuilt coverage**:
+  - Android arm64-v8a
+  - iOS arm64
+  - macOS ARM64
+  - Linux x64
+  - Windows x64
+- **Repository**: [https://github.com/zvec-ai/zvec-dart](https://github.com/zvec-ai/zvec-dart)
+
+</Tab>
+
+<Tab value="C / C++">
+
+```bash
+# Pick the archive for your platform from the releases page
+curl -LO https://github.com/alibaba/zvec/releases/latest/download/zvec-sdk-linux-amd64.tar.gz
+```
+
+- **Prebuilt coverage**:
+  - Linux x86_64 / ARM64 (glibc and musl)
+  - macOS ARM64
+  - Windows x86_64
+  - Android arm64-v8a
+  - iOS arm64
+- **Repository**: [https://github.com/alibaba/zvec](https://github.com/alibaba/zvec)
 
 </Tab>
 
@@ -96,29 +134,32 @@ flutter pub add zvec
 | Windows | x86_64 | ✅ |
 | Android | arm64-v8a | ✅ |
 | iOS | arm64 | ✅ |
-| RISC-V | riscv64 | ❌ |
+| RISC-V | riscv64 | ❌ (build from source) |
 
-*✅ = prebuilt artifacts published · ❌ = build from source.*
 
 ## Index Availability
 
-| Index | Linux x86_64 | Linux ARM64 | macOS ARM64 | Windows x86_64 | Android arm64 | iOS arm64 | RISC-V |
-| --- | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| [Flat](../concepts/vector-index/flat-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [IVF](../concepts/vector-index/ivf-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [HNSW](../concepts/vector-index/hnsw-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [Vamana](../concepts/vector-index/diskann-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Sparse vectors (Flat / HNSW) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| RaBitQ ([HNSW](../concepts/vector-index/hnsw-rabitq-index/) / [IVF](../concepts/vector-index/ivf-rabitq-index/)) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| [DiskANN](../concepts/vector-index/diskann-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| [INVERT](../concepts/inverted-index/) (scalar) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [FTS](../concepts/fts-index/) (full-text) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+<Accordions type="single">
+  <Accordion title="Show the full matrix (9 index types × 7 platforms)">
 
-*✅ = available on that platform · ❌ = not available.*
+  | Index | Linux x86_64 | Linux ARM64 | macOS ARM64 | Windows x86_64 | Android arm64-v8a | iOS arm64 | RISC-V |
+  | --- | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+  | [Flat](../concepts/vector-index/flat-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+  | [IVF](../concepts/vector-index/ivf-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+  | [HNSW](../concepts/vector-index/hnsw-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+  | [Vamana](../concepts/vector-index/diskann-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+  | Sparse vectors (Flat / HNSW) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+  | RaBitQ ([HNSW](../concepts/vector-index/hnsw-rabitq-index/) / [IVF](../concepts/vector-index/ivf-rabitq-index/)) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+  | [DiskANN](../concepts/vector-index/diskann-index/) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+  | [INVERT](../concepts/inverted-index/) (scalar) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+  | [FTS](../concepts/fts-index/) (full-text) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 
-<Callout className="text-base" type="info">
-  **RaBitQ** requires AVX2 and AVX-512, which is why it is limited to Linux x86_64 today.
-</Callout>
+  <Callout className="text-base" type="info">
+    **RaBitQ** requires AVX2 and AVX-512, which is why it is limited to Linux x86_64 today.
+  </Callout>
+
+  </Accordion>
+</Accordions>
 
 ## Related
 
