@@ -90,6 +90,7 @@ curl -fsS -o build/deps/javacpp.jar \
 cp styles/extra.css "${OUT}/zvec-extra.css"
 python3 - "${OUT}" <<'PYINJECT'
 import pathlib
+import re
 import sys
 
 out = pathlib.Path(sys.argv[1])
@@ -98,13 +99,30 @@ inject = (
     '<link rel="stylesheet" href="/api-reference/java/zvec-extra.css">'
     '</head>'
 )
-count = 0
+# Doc comments such as "std::shared_ptr<zvec::Collection>*" are not valid HTML,
+# so javadoc swaps the offending character for a marker that ends up rendered in
+# the page. Restore the character it reported; the text around it is already
+# escaped correctly.
+MARKER = re.compile("<span class=\"invalid-tag\">invalid input: '(.*?)'</span>")
+
+branding = repaired = 0
+leftover = []
 for html in out.rglob('*.html'):
     text = html.read_text(encoding='utf-8', errors='replace')
+    original = text
+    text, hits = MARKER.subn(lambda match: match.group(1), text)
+    repaired += hits
     if '</head>' in text:
-        html.write_text(text.replace('</head>', inject, 1), encoding='utf-8')
-        count += 1
-print(f"==> Injected branding into {count} html files")
+        text = text.replace('</head>', inject, 1)
+        branding += 1
+    if text != original:
+        html.write_text(text, encoding='utf-8')
+    if 'invalid-tag' in text:
+        leftover.append(str(html))
+print(f"==> Injected branding into {branding} html files")
+print(f"==> Restored {repaired} javadoc 'invalid input' markers")
+if leftover:
+    print(f"warning: {len(leftover)} files still contain invalid-tag markup", file=sys.stderr)
 PYINJECT
 
 echo "==> Java API reference written to ${OUT} (zvec-java ${VERSION})"
