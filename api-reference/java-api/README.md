@@ -31,8 +31,11 @@ The script:
 - downloads the `-sources.jar` together with the `org.bytedeco:javacpp` artifact
   the JNI bindings are annotated with (Javadoc 9+ reports unresolved symbols as
   errors), and drops the `examples` package (guides, not API surface);
-- runs `javadoc` with English output regardless of the host locale, then injects
-  the site favicon plus `styles/extra.css` for light branding.
+- runs `javadoc` with English output regardless of the host locale;
+- restores the characters javadoc replaces with a visible `invalid input` marker
+  when a doc comment contains raw angle brackets (the SDK mentions C++ types
+  such as `std::shared_ptr<zvec::Collection>*`);
+- injects the site favicon plus `styles/extra.css` for light branding.
 
 Generated files should not be edited by hand — change this project and rebuild
 instead.
